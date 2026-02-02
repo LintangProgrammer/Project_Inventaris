@@ -25,12 +25,7 @@ class BarangController extends Controller
     {
         $kategoris = Kategori::all();
         $lokasis = Lokasi::all();
-
-        // generate next kode_barang suggestion
-        $nextId = (Barang::max('id') ?? 0) + 1;
-        $nextKode = 'BRG-' . date('ymd') . '-' . str_pad($nextId, 4, '0', STR_PAD_LEFT);
-
-        return view('barang.create', compact('kategoris', 'lokasis', 'nextKode'));
+        return view('barang.create', compact('kategoris', 'lokasis'));
     }
 
     /**
@@ -39,7 +34,7 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'kode_barang'   => 'nullable|unique:barangs',
+            'kode_barang'   => 'required|unique:barangs',
             'nama_barang'   => 'required',
             'kategori_id'   => 'required|exists:kategoris,id',
             'lokasi_id'     => 'required|exists:lokasis,id',
@@ -51,12 +46,6 @@ class BarangController extends Controller
             'deskripsi'     => 'nullable|string',
             'foto'          => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
-        // if kode not provided, generate one now
-        if (empty($validated['kode_barang'])) {
-            $nextId = (Barang::max('id') ?? 0) + 1;
-            $validated['kode_barang'] = 'BRG-' . date('ymd') . '-' . str_pad($nextId, 4, '0', STR_PAD_LEFT);
-        }
 
         if ($request->hasFile('foto')) {
             $path = $request->file('foto')->store('barang', 'public');
