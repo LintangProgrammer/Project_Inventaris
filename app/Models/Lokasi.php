@@ -10,7 +10,7 @@ class Lokasi extends Model
     protected $table = 'lokasis';
 
     protected $fillable = [
-        'nama',
+        'nama_lokasi',
         'deskripsi'
     ];
 
