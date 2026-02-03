@@ -40,7 +40,7 @@
                             <select name="kategori_id" class="form-select" required>
                                 <option value="">Pilih kategori...</option>
                                 @foreach($kategoris as $k)
-                                    <option value="{{ $k->id }}" {{ old('kategori_id', $barang->kategori_id) == $k->id ? 'selected' : '' }}>{{ $k->nama_kategori }}</option>
+                                    <option value="{{ $k->id }}" {{ old('kategori_id', $barang->kategori_id ?? $kategoris->first()->id) == $k->id ? 'selected' : '' }}>{{ $k->nama_kategori }}</option>
                                 @endforeach
                             </select>
                         </div>

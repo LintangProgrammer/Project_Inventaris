@@ -25,7 +25,8 @@ class BarangController extends Controller
     {
         $kategoris = Kategori::all();
         $lokasis = Lokasi::all();
-        return view('barang.create', compact('kategoris', 'lokasis'));
+        $nextKode = Barang::generateKodeBarang();
+        return view('barang.create', compact('kategoris', 'lokasis', 'nextKode'));
     }
 
     /**
@@ -34,7 +35,7 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'kode_barang'   => 'required|unique:barangs',
+            'kode_barang'   => 'nullable|unique:barangs',
             'nama_barang'   => 'required',
             'kategori_id'   => 'required|exists:kategoris,id',
             'lokasi_id'     => 'required|exists:lokasis,id',
@@ -46,6 +47,11 @@ class BarangController extends Controller
             'deskripsi'     => 'nullable|string',
             'foto'          => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        // Auto-generate kode_barang jika kosong
+        if (empty($validated['kode_barang'])) {
+            $validated['kode_barang'] = Barang::generateKodeBarang();
+        }
 
         if ($request->hasFile('foto')) {
             $path = $request->file('foto')->store('barang', 'public');

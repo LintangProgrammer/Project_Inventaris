@@ -74,23 +74,33 @@
                 <div data-i18n="Analytics">Users Management</div>
             </a>
         </li>
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Product Management</div>
+        <!-- Product Management -->
+        <li class="menu-item {{ request()->routeIs('kategori.*') ? 'active' : '' }}">
+            <a href="{{ route('kategori.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-list-ul"></i>
+                <div data-i18n="Kategori">Kategori</div>
             </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
-                        <div data-i18n="Account">Category</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="pages-account-settings-notifications.html" class="menu-link">
-                        <div data-i18n="Notifications">Product</div>
-                    </a>
-                </li>
-            </ul>
+        </li>
+
+        <li class="menu-item {{ request()->routeIs('lokasi.*') ? 'active' : '' }}">
+            <a href="{{ route('lokasi.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-map-pin"></i>
+                <div data-i18n="Lokasi">Lokasi</div>
+            </a>
+        </li>
+
+        <li class="menu-item {{ request()->routeIs('barang.*') ? 'active' : '' }}">
+            <a href="{{ route('barang.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-package"></i>
+                <div data-i18n="Barang">Barang</div>
+            </a>
+        </li>
+
+        <li class="menu-item {{ request()->routeIs('peminjaman.*') ? 'active' : '' }}">
+            <a href="{{ route('peminjaman.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-hand"></i>
+                <div data-i18n="Peminjaman">Peminjaman</div>
+            </a>
         </li>
     </ul>
 </aside>
