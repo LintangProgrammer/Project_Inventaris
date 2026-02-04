@@ -122,11 +122,11 @@
                             <tr>
                                 <th style="width: 50px">#</th>
                                 <th>Kode</th>
-                                <th>Peminjam</th>
+                                <th>Nama Peminjam</th>
                                 <th>Tanggal Pinjam</th>
                                 <th>Tanggal Kembali</th>
                                 <th>Status</th>
-                                <th>User</th>
+                                <th>Petugas</th>
                                 <th style="width: 150px">Aksi</th>
                             </tr>
                         </thead>

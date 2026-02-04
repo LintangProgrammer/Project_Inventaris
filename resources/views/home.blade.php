@@ -38,9 +38,9 @@
                             <p class="mb-0 text-muted">Halo, <strong>{{ Auth::user()->name }}</strong>. Cari dan pinjam barang yang Anda butuhkan di sini.</p>
                         </div>
                         <div class="d-none d-md-block">
-                            <button type="button" class="btn btn-primary">
-                                <i class='bx bx-plus-circle me-1'><a href="{{ route('peminjaman.create') }}"></a>  Mulai Peminjaman Baru</i>
-                            </button>
+                            <a href="{{ route('peminjaman.create') }}" class="btn btn-primary">
+                                <i class='bx bx-plus-circle me-1'></i> Mulai Peminjaman Baru
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -133,9 +133,9 @@
                                             <small class="text-muted">{{ $barang->satuan }}</small>
                                         </td>
                                         <td class="text-end pe-4">
-                                            <button type="button" class="btn btn-sm btn-primary" onclick="selectForBorrow({{ $barang->id }}, '{{ addslashes($barang->nama_barang) }}')">
+                                            <a href="{{ route('peminjaman.create', ['barang_id' => $barang->id]) }}" class="btn btn-sm btn-primary">
                                                 Pinjam
-                                            </button>
+                                            </a>
                                         </td>
                                     </tr>
                                     @empty
@@ -198,102 +198,9 @@
         </div>
     </div>
 
-    <!-- Modal Pinjam Cepat -->
-    <div class="modal fade" id="modalPinjamCepat" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header border-bottom">
-                    <h5 class="modal-title fw-bold" id="exampleModalLabel1">Formulir Peminjaman Barang</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{ route('peminjaman.store') }}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-bold">Nama Peminjam</label>
-                                <input type="text" name="nama_peminjam" class="form-control" value="{{ Auth::user()->name }}" readonly>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-bold">Jenis Peminjam</label>
-                                <select name="jenis_peminjam" class="form-select" required>
-                                    <option value="Staf">Staf</option>
-                                    <option value="Dosen">Dosen</option>
-                                    <option value="Mahasiswa">Mahasiswa</option>
-                                    <option value="Lainnya">Lainnya</option>
-                                </select>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <label class="form-label fw-bold">Tanggal Pinjam</label>
-                                <input type="date" name="tanggal_pinjam" class="form-control" value="{{ date('Y-m-d') }}" required>
-                            </div>
-                        </div>
+@endsection
 
-                        <div class="divider text-start fw-bold mb-3">
-                            <div class="divider-text">Detail Barang</div>
-                        </div>
-
-                        <div id="items-container">
-                            <div class="row item-row mb-2 align-items-end">
-                                <div class="col-md-8">
-                                    <label class="form-label small">Barang</label>
-                                    <select name="barang_id[]" class="form-select select-barang" required>
-                                        <option value="">Pilih barang...</option>
-                                        @foreach($allBarang as $b)
-                                            <option value="{{ $b->id }}">{{ $b->nama_barang }} (Stok: {{ $b->jumlah }})</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="form-label small">Jumlah</label>
-                                    <input type="number" name="jumlah[]" class="form-control" min="1" value="1" required>
-                                </div>
-                                <div class="col-md-1 text-end">
-                                    <button type="button" class="btn btn-label-danger btn-icon" onclick="addRow(this)">
-                                        <i class='bx bx-plus'></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer border-top">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Konfirmasi Peminjaman</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    @push('scripts')
-    <script>
-        function addRow(btn) {
-            const container = document.getElementById('items-container');
-            const firstRow = container.querySelector('.item-row');
-            const newRow = firstRow.cloneNode(true);
-
-            // Reset values
-            newRow.querySelector('select').value = '';
-            newRow.querySelector('input').value = '1';
-
-            // Change button to remove
-            const button = newRow.querySelector('button');
-            button.className = 'btn btn-label-danger btn-icon';
-            button.innerHTML = "<i class='bx bx-trash'></i>";
-            button.onclick = function() { this.closest('.row').remove(); };
-
-            container.appendChild(newRow);
-        }
-
-        function selectForBorrow(id, name) {
-            const modal = new bootstrap.Modal(document.getElementById('modalPinjamCepat'));
-            const select = document.querySelector('.select-barang');
-            select.value = id;
-            modal.show();
-        }
-    </script>
-    @endpush
-
+@push('styles')
     <style>
         .bg-light-warning { background-color: #fff8e1; }
         .bg-light-success { background-color: #e8f5e9; }
@@ -306,16 +213,6 @@
             justify-content: center;
             border-radius: 8px;
         }
-        .btn-label-danger {
-            background-color: #fce4e4;
-            color: #f44336;
-            border: none;
-        }
-        .btn-icon {
-            width: 38px;
-            height: 38px;
-            padding: 0;
-        }
     </style>
-@endsection
+@endpush
 

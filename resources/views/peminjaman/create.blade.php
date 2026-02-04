@@ -91,7 +91,9 @@
                                                 <select name="barang_id[]" class="form-select" required>
                                                     <option value="">Pilih barang...</option>
                                                     @foreach($barang as $b)
-                                                        <option value="{{ $b->id }}">{{ $b->nama_barang }} (Stok: {{ $b->jumlah }} {{ $b->satuan }})</option>
+                                                        <option value="{{ $b->id }}" {{ (isset($selectedBarangId) && $selectedBarangId == $b->id) ? 'selected' : '' }}>
+                                                            {{ $b->nama_barang }} (Stok: {{ $b->jumlah }} {{ $b->satuan }})
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </td>
