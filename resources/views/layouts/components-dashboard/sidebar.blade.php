@@ -57,23 +57,25 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
-            <a href="{{ route('dashboard.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
-            </a>
-        </li>
-
+                <li class="menu-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                    <div data-i18n="Analytics">Dashboard</div>
+                </a>
+            </li>
+        
         <!-- Layouts -->
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Pages</span>
         </li>
+        @if (Auth::user() && Auth::user()->role === 'admin')
         <li class="menu-item {{ request()->routeIs('dashboard.users.*') ? 'active' : '' }}">
             <a href="{{ route('dashboard.users.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Analytics">Users Management</div>
             </a>
         </li>
+        @endif
         <!-- Product Management -->
         <li class="menu-item {{ request()->routeIs('kategori.*') ? 'active' : '' }}">
             <a href="{{ route('kategori.index') }}" class="menu-link">

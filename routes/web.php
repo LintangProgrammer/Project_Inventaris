@@ -20,7 +20,9 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
     Route::resource('users', App\Http\Controllers\Dashboard\UserController::class);
 });
 // routes/web.php
-Route::resource('kategori', App\Http\Controllers\KategoriController::class);
-Route::resource('lokasi', App\Http\Controllers\LokasiController::class);
-Route::resource('barang', App\Http\Controllers\BarangController::class);
-Route::resource('peminjaman', App\Http\Controllers\PeminjamanController::class);
+Route::middleware('auth')->group(function () {
+    Route::resource('kategori', App\Http\Controllers\KategoriController::class);
+    Route::resource('lokasi', App\Http\Controllers\LokasiController::class);
+    Route::resource('barang', App\Http\Controllers\BarangController::class);
+    Route::resource('peminjaman', App\Http\Controllers\PeminjamanController::class);
+});
