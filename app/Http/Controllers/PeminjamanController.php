@@ -12,7 +12,7 @@ class PeminjamanController extends Controller
 {
     public function index()
     {
-        $peminjaman = Peminjaman::with('user')->latest()->get();
+        $peminjaman = Peminjaman::with('user')->latest()->paginate(10);
         return view('peminjaman.index', compact('peminjaman'));
     }
 

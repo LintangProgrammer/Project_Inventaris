@@ -16,7 +16,7 @@ class UserController extends Controller
         $title = 'Delete User';
         $text = 'Are you sure you want to delete?';
         confirmDelete($title, $text);
-        $users = User::all();
+        $users = User::paginate(10);
         return view('dashboard.users.index', compact('users'));
     }
 
