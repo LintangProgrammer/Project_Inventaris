@@ -12,7 +12,7 @@ return new class extends Migration {
 
             $table->string('kode_peminjaman')->unique();
             $table->string('nama_peminjam');
-           $table->enum('jenis_peminjam', ['mahasiswa', 'guru', 'siswa', 'staf', 'luar']);
+           $table->enum('jenis_peminjam', ['mahasiswa', 'guru', 'siswa', 'staf','dosen','lainnya']);
             $table->date('tanggal_pinjam');
             $table->date('tanggal_kembali')->nullable();
             $table->enum('status',['dipinjam','dikembalikan','terlambat'])->default('dipinjam');

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('lokasi_id')->constrained('lokasis')->cascadeOnDelete();
             $table->enum('kondisi', ['baik', 'rusak_ringan', 'rusak_berat', 'hilang'])->default('baik');
             $table->integer('jumlah');
-            $table->string('satuan');
+            $table->enum('satuan', ['pcs', 'unit', 'set', 'pack'])->default('pcs');
             $table->date('tanggal_beli')->nullable();
             $table->decimal('harga', 12, 2)->nullable();
             $table->text('deskripsi')->nullable();

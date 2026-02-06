@@ -1,0 +1,103 @@
+/* Custom CSS for Project Inventaris */
+:root {
+  --primary-gradient: linear-gradient(135deg, #696cff 0%, #4346d3 100%);
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  --sidebar-width: 260px;
+}
+
+/* Glassmorphism Navbar */
+.bg-navbar-theme {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow) !important;
+}
+
+/* Enhanced Sidebar */
+.layout-menu {
+    box-shadow: 0 0 15px rgba(0,0,0,0.05);
+}
+
+.menu-inner .menu-item.active > .menu-link {
+    background: var(--primary-gradient) !important;
+    box-shadow: 0 4px 14px 0 rgba(105, 108, 255, 0.39) !important;
+    color: #fff !important;
+    font-weight: 600;
+}
+
+.menu-inner .menu-item.active > .menu-link .menu-icon {
+    color: #fff !important;
+}
+
+/* Hover effects */
+.menu-item .menu-link:hover {
+    background-color: rgba(105, 108, 255, 0.08); /* Light primary hover */
+    transform: translateX(5px);
+    transition: all 0.3s ease;
+}
+
+.menu-link {
+    transition: all 0.3s ease;
+    border-radius: 0.5rem;
+    margin: 0 0.5rem;
+}
+
+/* Card Improvements */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px 0 rgba(34, 41, 47, 0.12);
+}
+
+/* Statistics Cards Icons */
+.avatar-initial {
+    background: var(--primary-gradient);
+    color: white !important;
+}
+
+/* Table Styling */
+.table thead th {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #566a7f;
+}
+
+/* Interactive Buttons */
+.btn {
+    transition: transform 0.2s;
+}
+.btn:active {
+    transform: scale(0.95);
+}
+
+/* Content Fade In */
+.content-wrapper {
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Footer & Copyright */
+.footer {
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Avatar Border */
+.avatar img {
+    border: 2px solid #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}

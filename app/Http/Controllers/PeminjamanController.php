@@ -7,6 +7,10 @@ use App\Models\Barang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PeminjamanExport;
+    
 
 class PeminjamanController extends Controller
 {
@@ -94,5 +98,40 @@ class PeminjamanController extends Controller
                 ->with('success', 'Peminjaman berhasil dihapus dan stok telah dikembalikan');
         });
     }
+
+    public function kembalikan(Peminjaman $peminjaman)
+    {
+        if ($peminjaman->status !== 'dipinjam') {
+            return redirect()->back()->with('error', 'Hanya peminjaman dengan status "Dipinjam" yang dapat dikembalikan.');
+        }
+
+        return \DB::transaction(function () use ($peminjaman) {
+            foreach ($peminjaman->barang as $barang) {
+                $barang->increment('jumlah', $barang->pivot->jumlah);
+            }
+
+            $peminjaman->update([
+                'status' => 'dikembalikan',
+                'tanggal_kembali' => now(),
+            ]);
+
+            return redirect()->back()->with('success', 'Semua barang berhasil dikembalikan dan stok telah diperbarui.');
+        });
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new PeminjamanExport, 'laporan-peminjaman-' . now()->format('Y-m-d') . '.xlsx');
+    }
+
+    public function exportPdf()
+    {
+        $peminjaman = Peminjaman::with(['barang', 'user'])->latest()->get();
+        $pdf = Pdf::loadView('peminjaman.pdf', compact('peminjaman'));
+        return $pdf->download('laporan-peminjaman-' . now()->format('Y-m-d') . '.pdf');
+    }
+        
+   
+    
 }
 

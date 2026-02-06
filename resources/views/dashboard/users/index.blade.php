@@ -134,7 +134,7 @@
                                             <a href="{{ route('dashboard.users.edit', $user->id) }}" class="btn btn-sm btn-warning" title="Edit">
                                                 <i class='bx bx-edit'></i>
                                             </a>
-                                            @if($user->id !== Auth::id())
+                                            @if($user->id !== Auth::id() && $user->role !== 'admin')
                                                 <form action="{{ route('dashboard.users.destroy', $user->id) }}" method="POST"
                                                     onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?');" class="mb-0">
                                                     @csrf

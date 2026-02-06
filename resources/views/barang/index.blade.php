@@ -201,14 +201,6 @@
                                             <a href="{{ route('barang.edit', $b->id) }}" class="btn btn-sm btn-warning" title="Edit">
                                                 <i class='bx bx-edit'></i>
                                             </a>
-                                            <form action="{{ route('barang.destroy', $b->id) }}" method="POST"
-                                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus barang ini?');" class="mb-0">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-sm btn-danger" title="Hapus">
-                                                    <i class='bx bx-trash'></i>
-                                                </button>
-                                            </form>
                                         </div>
                                     </td>
                                 </tr>

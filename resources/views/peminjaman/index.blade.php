@@ -81,6 +81,14 @@
                 <a href="{{ route('peminjaman.create') }}" class="btn btn-primary">
                     <i class='bx bx-plus me-1'></i>Tambah Peminjaman
                 </a>
+                <div class="ms-2">
+                    <a href="{{ route('peminjaman.export.excel') }}" class="btn btn-success" target="_blank">
+                        <i class='bx bx-spreadsheet me-1'></i>Excel
+                    </a>
+                    <a href="{{ route('peminjaman.export.pdf') }}" class="btn btn-danger" target="_blank">
+                        <i class='bx bxs-file-pdf me-1'></i>PDF
+                    </a>
+                </div>
             </div>
             <div class="card-body">
                 @if(session('success'))

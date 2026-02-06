@@ -92,6 +92,12 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
+
+        if ($user->role === 'admin') {
+            toast()->error('Error', 'Admin users cannot be deleted!');
+            return redirect()->route('dashboard.users.index');
+        }
+
         $user->delete();
 
         toast()->success('Success', 'User deleted successfully');

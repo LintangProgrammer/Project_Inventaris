@@ -15,6 +15,19 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        @if(session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class='bx bx-check-circle me-2'></i>{{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        @endif
+
+                        @if(session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class='bx bx-error-circle me-2'></i>{{ session('error') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        @endif
                         <!-- Informasi Peminjaman -->
                         <div class="row mb-4">
                             <div class="col-md-6">
@@ -183,12 +196,22 @@
                     </div>
                     <div class="card-body">
                         <div class="d-grid gap-2">
+                            @if($peminjaman->status === 'dipinjam')
+                                <form action="{{ route('peminjaman.kembalikan', $peminjaman->id) }}" method="POST"
+                                    onsubmit="return confirm('Apakah Anda yakin ingin mengembalikan semua barang ini?');">
+                                    @csrf
+                                    <button class="btn btn-primary w-100 mb-2">
+                                        <i class='bx bx-check-double me-1'></i> Kembalikan Barang
+                                    </button>
+                                </form>
+                            @endif
+
                             <form action="{{ route('peminjaman.destroy', $peminjaman->id) }}" method="POST"
                                 onsubmit="return confirm('Apakah Anda yakin ingin menghapus peminjaman ini?');">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger w-100">
-                                    <i class='bx bx-trash'></i> Hapus Peminjaman
+                                <button class="btn btn-outline-danger w-100">
+                                    <i class='bx bx-trash me-1'></i> Hapus Peminjaman
                                 </button>
                             </form>
                         </div>

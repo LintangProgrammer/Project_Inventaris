@@ -95,8 +95,14 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Satuan <span class="text-danger">*</span></label>
-                            <input type="text" name="satuan" class="form-control @error('satuan') is-invalid @enderror"
-                                value="{{ old('satuan') }}" placeholder="misal: unit, pcs, dos" required>
+                            <select name="satuan" class="form-select @error('satuan') is-invalid @enderror" required>
+                                <option value="">Pilih satuan...</option>
+                                <option value="pcs" {{ old('satuan') == 'pcs' ? 'selected' : '' }}>Pcs</option>
+                                <option value="unit" {{ old('satuan') == 'unit' ? 'selected' : '' }}>Unit</option>
+                                <option value="set" {{ old('satuan') == 'set' ? 'selected' : '' }}>Set</option>
+                                <option value="pack" {{ old('satuan') == 'pack' ? 'selected' : '' }}>Pack</option>
+                                <option value="Lainnya" {{ old('satuan') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                            </select>
                             @error('satuan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
